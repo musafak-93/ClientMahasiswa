@@ -11,20 +11,28 @@
         <a href="main.html" target="#">Home</a>
     </div>
     <br>
+    <table>
+        <tr>
+            <td>ID</td>
+            <td><input type="text" id="id" value=""></input></td>
+            <td><button onclick="findforupdate()">FIND</button></td>
+            <br>
+        </tr>
+    </table>
     <div>
         <table>
             <form id="inputid">
                 <tr>
                     <td>ID: </td>
-                    <td><input type="text" name="id" value=""></input></td>
+                    <td><input type="text" name="id" id="nid" value=""></input></td>
                 </tr>
                 <tr>
                     <td>Nama: </td>
-                    <td><input type="text" name="nama" value=""></input></td>
+                    <td><input type="text" name="nama" id="nname" value=""></input></td>
                 </tr>
                 <tr>
                     <td>NIM:</td>
-                    <td><input type="text" name="nim" value=""></input></td>
+                    <td><input type="text" name="nim" id="nnim" value=""></input></td>
                 </tr>
             </form>
         </table>
@@ -32,10 +40,10 @@
     <br>
     <tr>
         <td></td>
-        <td><button onclick='createdata()'>Create Data</button></td>
+        <td><button onclick='update()'>Update</button></td>
     </tr>
     <br><br>
-    <div id="add"></div>
+    <div id="data"></div>
 </body>
 
 </html>

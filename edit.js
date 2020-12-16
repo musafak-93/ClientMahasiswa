@@ -82,22 +82,78 @@ function createdata(){
     let urls = "http://localhost:36633/2018CWS1/webresources/mhs.mahasiswa";
     let view = document.getElementById('add');
     let idinput = document.getElementById('inputid');
-    let id = idinput.elements[0].value;
-    let nama = idinput.elements[1].value;
-    let nim = idinput.elements[2].value;
-    let xml = '<mahasiswa>';
-        xml += '<id>'+id+'</id><nama>'+nama+'</nama><nim>'+nim+'</nim>';
-        xml += '</mahasiswa>';
+    let ids = idinput.elements[0].value;
+    let namas = idinput.elements[1].value;
+    let nims= idinput.elements[2].value;
+    let xml =
+    '<mahasiswa>' +
+    '<id>' + ids + '</id>' +
+    '<nama>' + namas + '</nama>' +
+    '<nim>' + nims + '</nim>' +
+    '</mahasiswa>';
     $.ajax ({
         url : urls,
         method : 'POST',
         contentType: 'application/xml',
         data: xml,
         success : function (resp) {
-            view.innerHTML = '1 baris dengan id'+id+' sudah ditambahkan';
+            view.innerHTML = '1 baris dengan id'+ids+' sudah ditambahkan';
         },
         fail: function (e) {
             view.innerHTML = 'Data gagal disimpan';
         }
     })
+}
+
+function findforupdate(){
+    let id = document.getElementById("id").value;
+    findforedit (id);
+}
+
+function findforedit (id){
+    let url = 'http://localhost:36633/2018CWS1/webresources/mhs.mahasiswa';
+    let nurl = url + '/' +id;
+    $.ajax ({
+        url : nurl,
+        method : 'GET',
+        dataType: 'xml',
+        success : function (resp) {
+            if (resp != null){
+                let id = resp.getElementsByTagName("id")[0].childNodes[0].nodeValue;
+                let nama = resp.getElementsByTagName("nama")[0].childNodes[0].nodeValue;
+                let nim = resp.getElementsByTagName("nim")[0].childNodes[0].nodeValue;
+                document.getElementById("nid").value=id;
+                document.getElementById("nname").value=nama;
+                document.getElementById("nnim").value=nim;
+            }
+            else {view.innerHTML = 'tidak ada data';}
+        },
+        fail: function (e) {}
+    })
+}
+
+function update (){
+    let urls = "http://localhost:36633/2018CWS1/webresources/mhs.mahasiswa/";
+    let view = document.getElementById('data');
+    let idinput = document.getElementById('inputid');
+    let id = idinput.elements[0].value;
+    let nama = idinput.elements[1].value;
+    let nim = idinput.elements[2].value;
+    
+    let xml = '<mahasiswa>';
+    xml += '<id>'+id+'</id><nama>'+nama+'</nama><nim>'+nim+'</nim>';
+    xml += '</mahasiswa>';
+    urls += id;
+            $.ajax ({
+                url : urls,
+                method : 'PUT',
+                contentType: 'application/xml',
+                data: xml,
+                success : function (resp) {
+                    view.innerHTML = '1 baris dengan id'+ id +' sudah ditambahkan';
+                 },
+         fail: function (e) {
+        view.innerHTML = 'Data gagal disimpan';
+    }
+})
 }
