@@ -13,7 +13,12 @@ function findbyid (){
                 let id = resp.getElementsByTagName("id")[0].childNodes[0].nodeValue;
                 let nama = resp.getElementsByTagName("nama")[0].childNodes[0].nodeValue;
                 let nim = resp.getElementsByTagName("nim")[0].childNodes[0].nodeValue;
-                view.innerHTML = id + '-' + nama + '=' +nim;
+                let html = '<table border="1">';
+                    html += '<th>ID</th><th>Nama</th><th>NIM</th><tr>'
+                    html += '<td>'+id+'</td><td>'+nama+'</td><td>'+nim+'</td>';
+                    html += '</tr></table>';
+                view.innerHTML = html;
+
             }
             else {view.innerHTML = 'tidak ada data';}
         },
@@ -74,24 +79,25 @@ function xml2html (xml) {
 }
 
 function createdata(){
+    let urls = "http://localhost:36633/2018CWS1/webresources/mhs.mahasiswa";
     let view = document.getElementById('add');
-    let idobj = document.getElementById('inputid');
-    let idn = idobj.elements[0].value;
-    let url = 'http://localhost:36633/2018CWS1/webresources/mhs.mahasiswa';
-    let nurl = url + '/' +idn;
+    let idinput = document.getElementById('inputid');
+    let id = idinput.elements[0].value;
+    let nama = idinput.elements[1].value;
+    let nim = idinput.elements[2].value;
+    let xml = '<mahasiswa>';
+        xml += '<id>'+id+'</id><nama>'+nama+'</nama><nim>'+nim+'</nim>';
+        xml += '</mahasiswa>';
     $.ajax ({
-        url : nurl,
+        url : urls,
         method : 'POST',
-        dataType: 'xml',
+        contentType: 'application/xml',
+        data: xml,
         success : function (resp) {
-            if (resp != null){
-                let id = resp.getElementsByTagName("id")[0].childNodes[0].nodeValue;
-                let nama = resp.getElementsByTagName("nama")[0].childNodes[0].nodeValue;
-                let nim = resp.getElementsByTagName("nim")[0].childNodes[0].nodeValue;
-                view.innerHTML = 'Data Berhasil Ditambah';
-            }
-            else {view.innerHTML = 'Failed';}
+            view.innerHTML = '1 baris dengan id'+id+' sudah ditambahkan';
         },
-        fail: function (e) {}
+        fail: function (e) {
+            view.innerHTML = 'Data gagal disimpan';
+        }
     })
 }

@@ -1,5 +1,4 @@
 <html>
-
 <head>
     <script src="jquery.min.js"></script>
     <script src="edit.js"></script>
@@ -11,11 +10,15 @@
         <a href="main.html" target="#">Home</a>
     </div>
     <br>
-    <form id="inputid">
-        ID:   <input type="text" value=""></input><br><br>
-        Nama: <input type="text" value=""></input><br><br>
-        NIM:  <input type="text" value=""></input>
-    </form>
+    <div>
+        <table>
+            <form id="inputid">
+               <tr> <td>ID: </td> <td><input type="text" name="id" value=""></input></td></tr>
+               <tr> <td>Nama: </td> <td><input type="text" name="nama" value=""></input></td></tr>
+               <tr> <td>NIM:</td> <td><input type="text" name="nim" value=""></input></td></tr>
+            </form>
+        </table>
+    </div>
     <br>
     <button onclick='createdata()'>Create Data</button>
     <br><br>
